@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 type Props = {};
 
@@ -22,25 +22,26 @@ export default function Navbar({}: Props) {
     <nav className="border-b bg-purple-500">
       <div className="mx-auto flex max-w-screen-xl items-center space-x-8 px-4 py-1 md:px-8">
         <div className="flex-none lg:flex-initial">
-          {/* <a href="javascript:void(0)"> */}
           <Image
-            src="https://www.floatui.com/logo.svg"
-            width={120}
-            height={50}
-            alt="Float UI logo"
+            src="/logo.png"
+            alt="logo"
+            width={40}
+            height={40}
+            placeholder="blur"
+            blurDataURL={"/logo.png"}
             priority
+            rel="preload"
           />
-          {/* </a> */}
         </div>
         <div className="flex flex-1 items-center justify-between">
           <div
-            className={`absolute left-0 top-16 z-20 w-full border-b  p-4 lg:static lg:block lg:border-none ${
+            className={`absolute left-0 top-16 z-20 w-full border-b bg-purple-500 p-4 lg:static lg:block lg:border-none ${
               menuState ? "" : "hidden"
             }`}
           >
             <ul className="mt-12 space-y-5 lg:mt-0 lg:flex lg:space-x-6 lg:space-y-0">
               {navigation.map((item, idx) => (
-                <li key={idx} className="text-gray-500 hover:text-black">
+                <li key={idx} className="text-white hover:text-white">
                   <Link href={item.path}>{item.title}</Link>
                 </li>
               ))}
@@ -64,12 +65,14 @@ export default function Navbar({}: Props) {
                 />
               </svg>
               <input
-                className="w-full appearance-none text-gray-500 placeholder-gray-500 outline-none sm:w-auto bg-purple-500"
+                className="w-full appearance-none bg-purple-500 text-gray-500 placeholder-gray-500 outline-none sm:w-auto"
                 type="text"
                 placeholder="Search"
               />
             </form>
-            <button className="text-white" onClick={() => signOut()}>signOut</button>
+            <button className="text-white" onClick={() => signOut()}>
+              signOut
+            </button>
             {/* <ProfileDropDown class="hidden lg:block" /> */}
             <button
               className="block text-gray-400 outline-none lg:hidden"

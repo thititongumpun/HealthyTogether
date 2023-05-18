@@ -2,12 +2,23 @@
 
 import React, { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 interface Props {
   children: ReactNode;
 }
 
 const Providers = ({ children }: Props) => {
-  return <SessionProvider>{children}</SessionProvider>;
+  const [client] = React.useState(
+    new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
+  );
+  return (
+    <QueryClientProvider client={client}>
+      <SessionProvider>{children}</SessionProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
 
 export default Providers;

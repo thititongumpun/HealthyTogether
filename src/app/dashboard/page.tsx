@@ -15,7 +15,7 @@ const menus = [
   {
     name: "สรุปผลกิจกรรม",
     subMenu: "(วิ่งเดิน/ดื่มน้ำ)",
-    link: "",
+    link: "/report",
   },
   {
     name: "กิจกรรม 5 หมวด",
@@ -36,7 +36,7 @@ const menus = [
 
 export default function DashboardPage({}: Props) {
   const { data: session } = useSession();
-  console.log(session?.user);
+  console.log(session);
   return (
     <main className="flex items-center justify-center px-4 py-16">
       <div className="mx-auto w-full max-w-md">
@@ -44,7 +44,7 @@ export default function DashboardPage({}: Props) {
           {menus.map((menu, idx) => (
             <div
               key={idx}
-              className="mx-auto flex w-full flex-col items-center justify-between rounded-xl border"
+              className="mx-auto flex w-full flex-col items-center justify-between rounded-xl border text-center"
             >
               <Link href={menu.link}>
                 <div className="text-3xl">{menu.name}</div>

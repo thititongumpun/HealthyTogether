@@ -1,6 +1,5 @@
 import Providers from "@/app/Providers";
 import Navbar from "@/app/components/Navbar";
-import Sidebar from "../components/Sidebar";
 
 export const metadata = {
   title: "Healthy Application",
@@ -15,7 +14,9 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      {children}
+      <section className="mx-auto flex max-w-screen-2xl flex-col items-center justify-center">
+        {children}
+      </section>
     </>
   );
 }

@@ -15,7 +15,6 @@ export default function LoginPage({}: Props) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
@@ -33,7 +32,6 @@ export default function LoginPage({}: Props) {
       }
     });
   };
-  console.log(watch("email"));
   return (
     <main className="flex min-h-screen items-center justify-center text-center">
       <div className="flex flex-col space-y-1">
