@@ -41,7 +41,7 @@ export default function LoginPage({}: Props) {
       <div className="flex flex-col space-y-1">
         <div className="flex items-center justify-center">
           <Image
-            src="/logo.png"
+            src="https://healthyapplication.vercel.app/logo.png"
             alt="logo"
             width={150}
             height={30}
@@ -78,6 +78,7 @@ export default function LoginPage({}: Props) {
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="password"
+              type="password"
               placeholder="Password"
               {...register("password")}
             />

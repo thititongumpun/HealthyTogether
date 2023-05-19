@@ -5,6 +5,9 @@ const nextConfig = {
     config.resolve.alias.encoding = false;
     return config;
   },
+  images: {
+    domains: ["healthyapplication.vercel.app"]
+  }
 };
 
 module.exports = nextConfig;

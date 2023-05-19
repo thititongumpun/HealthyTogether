@@ -13,6 +13,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { useChartData } from "@/hooks/useChartData";
 import type { ChartData, ChartOptions } from "chart.js";
+import Loading from "@/app/components/Loading";
 
 ChartJS.register(
   CategoryScale,
@@ -64,7 +65,7 @@ export default function ReportPage({}: Props) {
   };
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Loading />
   }
   return (
     <section className="w-full md:w-[680px]">
