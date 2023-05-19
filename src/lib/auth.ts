@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch("https://apiprd.thiti.live/api/v1/Accounts/authenticate", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/Accounts/authenticate`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }

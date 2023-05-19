@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useChartData } from "@/hooks/useChartData";
+import type { ChartData, ChartOptions } from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -22,15 +23,15 @@ ChartJS.register(
   Legend
 );
 
-let delayed = false;
-export const options = {
+let delayed= false;
+const options: ChartOptions = {
   responsive: true,
   plugins: {
     legend: {
       position: "top" as const,
     },
     title: {
-      display: true,
+      display: false,
       text: "กราฟแสดงรายละเอียด",
     },
   },
@@ -41,11 +42,7 @@ export const options = {
     },
     delay: (context: any) => {
       let delay = 0;
-      if (
-        context.type === "data" &&
-        context.mode === "default" &&
-        !delayed
-      ) {
+      if (context.type === "data" && context.mode === "default" && !delayed) {
         delay = context.dataIndex * 300 + context.datasetIndex * 100;
       }
       return delay;
@@ -58,13 +55,13 @@ type Props = {};
 export default function ReportPage({}: Props) {
   const menuItems = ["วิ่ง", "ดื่มน้ำ"];
   const [selected, setSelected] = useState(menuItems[0]);
-  const { data, isLoading, isFetching, error, refetch } = useChartData(selected);
-  
-  const handleSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  }
+  const { data, isLoading, isFetching, error, refetch } =
+    useChartData(selected);
 
-  console.log(selected)
+  const handleSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setSelected(e.target.value);
+  };
 
   if (isLoading) {
     return <div>Loading</div>;
@@ -85,7 +82,11 @@ export default function ReportPage({}: Props) {
           />
         </svg>
         เลือกรายการกิจกรรม
-        <select onChange={(e) => {setSelected(e.target.value)}} className="w-full appearance-none rounded-md border bg-white p-2.5 text-gray-500 shadow-sm outline-none focus:border-indigo-600">
+        <select
+          value={selected}
+          onChange={handleSelected}
+          className="w-full appearance-none rounded-md border bg-white p-2.5 text-gray-500 shadow-sm outline-none focus:border-indigo-600"
+        >
           {menuItems.map((menu, idx) => (
             <option key={idx}>{menu}</option>
           ))}

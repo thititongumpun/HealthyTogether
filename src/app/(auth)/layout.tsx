@@ -1,3 +1,5 @@
+import Navbar from "@/app/components/Navbar";
+
 export const metadata = {
   title: "Login",
   description: "Login Page",

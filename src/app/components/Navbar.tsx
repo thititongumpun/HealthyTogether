@@ -12,10 +12,12 @@ export default function Navbar({}: Props) {
   const [menuState, setMenuState] = useState(false);
 
   const navigation = [
-    { title: "Dashboard", path: "/dashboard" },
+    { title: "Dashboard", path: "/" },
     { title: "Careers", path: "/" },
-    { title: "Guides", path: "/" },
+    { title: "สรุปผลกิจกรรม", path: "/report" },
     { title: "Partners", path: "/" },
+    { title: "แนะนำ", path: "/recommend" },
+    { title: "คู่มือการใช้งาน", path: "/manual" },
   ];
 
   return (

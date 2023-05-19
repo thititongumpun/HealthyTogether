@@ -13,7 +13,6 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <Navbar />
       <section className="mx-auto flex max-w-screen-2xl flex-col items-center justify-center">
         {children}
       </section>

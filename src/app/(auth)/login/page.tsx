@@ -4,14 +4,18 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect } from 'next/navigation';
 
 type Props = {};
 
 export default function LoginPage({}: Props) {
   const router = useRouter();
-  const [isPasswordHidden, setPasswordHidden] = useState(true)
+  const { status } = useSession();
+  if (status === "authenticated") {
+    redirect('/');
+  }
   const {
     register,
     handleSubmit,
@@ -22,13 +26,13 @@ export default function LoginPage({}: Props) {
 
     await signIn("credentials", {
       ...data,
-      redirect: false,
+      redirect: true,
       callbackUrl: `${window.location.origin}/`,
     }).then((response) => {
       if (!response?.ok) {
-        console.log(response?.error);
+        console.log(response);
       } else {
-        router.push("/dashboard");
+        router.push("/");
       }
     });
   };
@@ -75,12 +79,14 @@ export default function LoginPage({}: Props) {
             <input
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="password"
-              type={isPasswordHidden ? "password" : "text"}
               placeholder="Password"
               {...register("password")}
             />
           </div>
-          <button className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+          <button
+            type="submit"
+            className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          >
             เข้าสู่ระบบ
           </button>
         </form>
@@ -93,7 +99,7 @@ export default function LoginPage({}: Props) {
             <span className="bg-white px-4 text-sm">หรือ</span>
           </div>
         </div>
-        <div className="flex justify-center space-x-2 py-4 px-2">
+        <div className="flex justify-center space-x-2 px-2 py-4">
           <p>ไม่มีบัญชี?</p>
           <Link
             href="/register"
