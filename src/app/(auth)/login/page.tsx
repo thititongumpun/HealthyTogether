@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 
 type Props = {};
 
@@ -14,7 +14,7 @@ export default function LoginPage({}: Props) {
   const router = useRouter();
   const { status } = useSession();
   if (status === "authenticated") {
-    redirect('/');
+    redirect("/");
   }
   const {
     register,
@@ -39,15 +39,14 @@ export default function LoginPage({}: Props) {
   return (
     <main className="flex min-h-screen items-center justify-center text-center">
       <div className="flex flex-col space-y-1">
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width={150}
-          height={37}
-          placeholder="blur"
-          blurDataURL={"/logo.png"}
-          className="h-auto w-full"
-        />
+        <div className="flex items-center justify-center">
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={150}
+            height={30}
+          />
+        </div>
         <p className="text-xl font-bold">Healthy Together</p>
         <p className="text-sm">Application</p>
         <form
