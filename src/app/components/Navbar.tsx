@@ -29,10 +29,7 @@ export default function Navbar({}: Props) {
             alt="logo"
             width={40}
             height={40}
-            placeholder="blur"
-            blurDataURL={"/logo.png"}
             priority
-            rel="preload"
           />
         </div>
         <div className="flex flex-1 items-center justify-between">
