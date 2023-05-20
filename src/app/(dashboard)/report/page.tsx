@@ -82,7 +82,6 @@ export default function ReportPage({}: Props) {
             clipRule="evenodd"
           />
         </svg>
-        เลือกรายการกิจกรรม
         <select
           value={selected}
           onChange={handleSelected}

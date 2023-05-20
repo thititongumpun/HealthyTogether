@@ -6,7 +6,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["healthyapplication.vercel.app"]
+    domains: ["healthyapplication.vercel.app", "res.cloudinary.com"]
   }
 };
 

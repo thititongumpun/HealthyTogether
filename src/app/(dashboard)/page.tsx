@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 type Props = {};
 
@@ -35,8 +33,6 @@ const menus = [
 ];
 
 export default function DashboardPage({}: Props) {
-  const { data: session } = useSession();
-  console.log(session);
   return (
     <main className="flex items-center justify-center px-4 py-16">
       <div className="mx-auto w-full max-w-md">
