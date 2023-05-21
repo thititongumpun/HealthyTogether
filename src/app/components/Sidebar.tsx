@@ -5,11 +5,14 @@ import {
   FolderIcon,
   HomeIcon,
   UserGroupIcon,
+  ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { useOnClickOutside } from "usehooks-ts";
+import { signOut } from "next-auth/react";
+import { User } from "@/types/Auth";
 
 export type NavItem = {
   label: string;
@@ -42,17 +45,25 @@ type Props = {
   open: boolean;
   navItems?: NavItem[];
   setOpen(open: boolean): void;
+  user: User;
 };
 
 export default function Sidebar({
   open,
   navItems = navigation,
   setOpen,
+  user,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, (e) => {
     setOpen(false);
   });
+
+  const handleSignout = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    signOut();
+  };
+
   return (
     <div
       className={classNames({
@@ -78,12 +89,25 @@ export default function Sidebar({
                     "transition-colors duration-300": true, //animation
                     "mx-2 rounded-md p-2": true, //self style
                   })}
+                  onClick={() => setOpen(false)}
                 >
                   {item.icon} {item.label}
                 </li>
               </Link>
             );
           })}
+          <li
+            className={classNames({
+              "text-indigo-100 hover:bg-indigo-900": true, //colors
+              "flex items-center gap-4 ": true, //layout
+              "transition-colors duration-300": true, //animation
+              "mx-2 rounded-md p-2": true, //self style
+              "hover: cursor-pointer": true,
+            })}
+            onClick={handleSignout}
+          >
+            <ArrowLeftOnRectangleIcon className="h-6 w-6" /> ออกจากระบบ
+          </li>
         </ul>
       </nav>
       {/* account  */}
@@ -99,9 +123,9 @@ export default function Sidebar({
             className="rounded-full"
           />
           <div className="flex flex-col ">
-            <span className="my-0 text-indigo-50">Tom Cook</span>
+            <span className="my-0 text-indigo-50">{user?.fullName}</span>
             <Link href="/" className="text-sm text-indigo-200">
-              View Profile
+              ตั้งค่า
             </Link>
           </div>
         </div>

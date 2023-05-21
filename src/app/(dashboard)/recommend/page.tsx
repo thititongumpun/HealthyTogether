@@ -29,7 +29,7 @@ export default async function RecommendPage({}: Props) {
         {data.map((advice) => (
           <li
             key={advice.id}
-            className="bg-purple-500 px-4 py-5 text-white duration-150 hover:rounded-xl hover:border-white hover:shadow-md"
+            className="bg-purple-500 px-4 py-5 text-white duration-150 hover:rounded-xl hover:border-white hover:shadow-md md:px-12"
           >
             <Link href={`/recommend/${advice.id.toString()}`}>
               <p className="text-lg">{advice.name}</p>

@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <section className="mx-auto flex max-w-screen-2xl flex-col items-center justify-center">
+      <section className="mx-auto flex max-w-screen-2xl flex-col items-center justify-center md:w-[800px]">
         {children}
       </section>
     </>

@@ -28,7 +28,7 @@ const menus = [
   {
     name: "คู่มือการใช้งาน",
     subMenu: "Healthy Together",
-    link: "",
+    link: "/manual",
   },
 ];
 

@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
 import React from "react";
-import { Bars3Icon, BellIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Image from "next/image";
 
 type Props = {
   onMenuButtonClick(): void;
+  isOpen: boolean;
 };
 
-export default function Navbar({ onMenuButtonClick }: Props) {
+export default function Navbar({ onMenuButtonClick, isOpen }: Props) {
   return (
     <nav
       className={classNames({
@@ -22,10 +23,14 @@ export default function Navbar({ onMenuButtonClick }: Props) {
       <Image src="/logo.png" alt="logo" width={40} height={40} priority />
       <div className="flex-grow"></div>
       <div className="flex flex-1 items-center justify-end">
-        <BellIcon className="h-6 w-6"/>
+        <BellIcon className="h-6 w-6" />
       </div>
       <button className="md:hidden" onClick={onMenuButtonClick}>
-        <Bars3Icon className="h-6 w-6" />
+        {isOpen ? (
+          <XMarkIcon className="h-6 w-6" />
+        ) : (
+          <Bars3Icon className="h-6 w-6" />
+        )}
       </button>
     </nav>
   );
