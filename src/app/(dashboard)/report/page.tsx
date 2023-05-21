@@ -12,8 +12,9 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useChartData } from "@/hooks/useChartData";
-import type { ChartData, ChartOptions } from "chart.js";
+import type { ChartOptions } from "chart.js";
 import Loading from "@/app/components/Loading";
+import Datepicker from "react-tailwindcss-datepicker";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-let delayed= false;
+let delayed = false;
 const options: ChartOptions = {
   responsive: true,
   plugins: {
@@ -56,32 +57,44 @@ type Props = {};
 export default function ReportPage({}: Props) {
   const menuItems = ["วิ่ง", "ดื่มน้ำ"];
   const [selected, setSelected] = useState(menuItems[0]);
-  const { data, isLoading, isFetching, error, refetch } =
-    useChartData(selected);
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
+  });
+
+  const { data, isLoading } = useChartData(
+    value.startDate,
+    value.endDate,
+    selected
+  );
 
   const handleSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSelected(e.target.value);
   };
 
+  const handleValueChange = (newValue: any | any) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  };
+
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
   return (
-    <section className="w-full md:w-[680px]">
-      <div className="relative mx-auto mt-12 max-w-xs">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute bottom-0 right-2.5 top-0 my-auto h-6 w-6 text-gray-400"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
+    <section className="w-full">
+      <div className="mx-auto mt-12 flex flex-col space-y-5">
+        <Datepicker
+          value={value}
+          onChange={handleValueChange}
+          primaryColor={"blue"}
+          separator={"~"}
+          showFooter={true}
+          readOnly={true}
+          inputClassName="w-full rounded-md focus:ring-0 bg-white px-3 py-4 text-sm shadow-sm outline-none focus:border-indigo-600"
+          toggleClassName={"hidden"}
+          useRange={false}
+        />
         <select
           value={selected}
           onChange={handleSelected}
@@ -92,7 +105,7 @@ export default function ReportPage({}: Props) {
           ))}
         </select>
       </div>
-      <div>
+      <div className={`relative h-[30vh] w-[90vw] md:h-auto md:w-[500px]`}>
         <Bar options={options} data={data!} />
       </div>
     </section>

@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from 'axios';
 import { getSession } from "next-auth/react";
 
-export const getChartData = async (label: string) => {
+export const getChartData = async (dateFrom: Date, dateTo: Date, label: string) => {
   const session = await getSession()
   const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/chart`, {
-    dateFrom: "2023-05-13",
-    dateTo: "2023-05-18",
+    dateFrom: dateFrom,
+    dateTo: dateTo,
     label: label,
   },
     {
@@ -20,4 +20,4 @@ export const getChartData = async (label: string) => {
   return response;
 }
 
-export const useChartData = (label: string) => useQuery(['chartData', label], () => getChartData(label));
+export const useChartData = (dateFrom: Date, dateTo: Date, label: string) => useQuery(['chartData', dateFrom, dateTo, label], () => getChartData(dateFrom, dateTo, label));
