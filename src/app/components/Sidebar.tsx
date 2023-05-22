@@ -2,7 +2,6 @@
 
 import React, { useRef } from "react";
 import {
-  FolderIcon,
   HomeIcon,
   UserGroupIcon,
   ArrowLeftOnRectangleIcon,
@@ -16,19 +15,30 @@ import { User } from "@/types/Auth";
 
 export type NavItem = {
   label: string;
+  subMenu?: string;
   href: string;
   icon: React.ReactNode;
 };
 
-const navigation: NavItem[] = [
-  { label: "Dashboard", href: "/", icon: <HomeIcon className="h-6 w-6" /> },
-  { label: "Careers", href: "/", icon: <UserGroupIcon className="h-6 w-6" /> },
+export const navigation: NavItem[] = [
+  { label: "แดชบอร์ด", href: "/", icon: <HomeIcon className="h-6 w-6" /> },
+  {
+    label: "บันทึกกิจกรรม",
+    subMenu: "(วิ่งเดิน/ดื่มน้ำ)",
+    href: "/",
+    icon: <HomeIcon className="h-6 w-6" />,
+  },
   {
     label: "สรุปผลกิจกรรม",
+    subMenu: "(วิ่งเดิน/ดื่มน้ำ)",
     href: "/report",
     icon: <HomeIcon className="h-6 w-6" />,
   },
-  { label: "Partners", href: "/", icon: <FolderIcon className="h-6 w-6" /> },
+  {
+    label: "กิจกรรม 5 หมวด",
+    href: "/activity",
+    icon: <UserGroupIcon className="h-6 w-6" />,
+  },
   {
     label: "แนะนำ",
     href: "/recommend",
@@ -36,6 +46,7 @@ const navigation: NavItem[] = [
   },
   {
     label: "คู่มือการใช้งาน",
+    subMenu: "Healthy Together",
     href: "/manual",
     icon: <HomeIcon className="h-6 w-6" />,
   },

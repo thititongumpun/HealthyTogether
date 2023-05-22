@@ -4,13 +4,22 @@ import React from "react";
 import { Bars3Icon, XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Image from "next/image";
+import { NavItem } from "./Sidebar";
+import { usePathname } from "next/navigation";
 
 type Props = {
   onMenuButtonClick(): void;
   isOpen: boolean;
+  navigation?: NavItem[];
 };
 
-export default function Navbar({ onMenuButtonClick, isOpen }: Props) {
+export default function Navbar({
+  onMenuButtonClick,
+  isOpen,
+  navigation,
+}: Props) {
+  const pathname = usePathname();
+  const title = navigation?.find((item) => item.href === pathname)?.label!;
   return (
     <nav
       className={classNames({
@@ -18,9 +27,11 @@ export default function Navbar({ onMenuButtonClick, isOpen }: Props) {
         "flex items-center": true, // layout
         "fixed z-10 h-16 w-full px-4 shadow-sm": true, //positioning & styling
         "!bg-purple-500": true,
+        "gap-5": true,
       })}
     >
       <Image src="/logo.png" alt="logo" width={40} height={40} priority />
+      <span className="font-bold text-white">{title}</span>
       <div className="flex-grow"></div>
       <div className="flex flex-1 items-center justify-end">
         <BellIcon className="h-6 w-6" />

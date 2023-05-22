@@ -11,12 +11,12 @@ interface Props {
 
 const Providers = ({ children }: Props) => {
   const [client] = React.useState(
-    new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
+    new QueryClient({ defaultOptions: { queries: { staleTime: 0 } } })
   );
   return (
     <QueryClientProvider client={client}>
       <SessionProvider>{children}</SessionProvider>
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right"/>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
   );
 };

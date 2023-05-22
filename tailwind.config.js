@@ -17,7 +17,7 @@ module.exports = {
         "purple-500": "#512da8",
       },
       gridTemplateColumns: {
-        sidebar: "200px auto", //for sidebar layout
+        sidebar: "250px auto", //for sidebar layout
       },
       gridTemplateRows: {
         header: "64px auto", //for the navbar layout
