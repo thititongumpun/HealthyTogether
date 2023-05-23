@@ -45,7 +45,6 @@ export default function RootLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { data: session } = useSession();
-  console.log(session?.user);
 
   return (
     <main className="grid min-h-screen grid-rows-header bg-zinc-100">

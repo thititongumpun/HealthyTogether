@@ -22,7 +22,6 @@ export default function LoginPage({}: Props) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    console.log(data);
 
     await signIn("credentials", {
       ...data,
@@ -30,7 +29,6 @@ export default function LoginPage({}: Props) {
       callbackUrl: `${window.location.origin}/`,
     }).then((response) => {
       if (!response?.ok) {
-        console.log(response);
       } else {
         router.push("/");
       }

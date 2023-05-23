@@ -1,8 +1,10 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useState } from "react";
 import { useCriteria } from "@/hooks/useCriteria";
+import Loading from "@/app/components/Loading";
+import Checkbox from "@/app/components/Checkbox";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: {
@@ -11,25 +13,38 @@ type Props = {
 };
 
 export default function ActivityCategoryPage({ params }: Props) {
-  const { data } = useCriteria(+params.categoryId);
+  const [checked, setChecked] = useState(false);
+  const { data, isLoading } = useCriteria(params.categoryId);
+  const router = useRouter();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <ul className="mt-12 w-full space-y-3 divide-y">
+      <button
+        className="mt-3 rounded-lg border border-purple-500 bg-purple-500 px-2 py-2 text-white"
+        onClick={router.back}
+      >
+        back
+      </button>
+      <ul className="mt-4 w-full space-y-3 divide-y">
         {data?.items.map((item, idx) => (
           <li
             key={idx}
-            className="bg-purple-500 px-4 py-5 text-white duration-150 hover:rounded-xl hover:border-white hover:shadow-md"
+            className="text-dark flex items-center justify-between bg-gray-400 px-2 py-5 font-semibold duration-150 hover:border-white hover:shadow-md"
           >
-            <Link
-              href={item.categoryId}
-              passHref
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="text-left text-sm">
-                {item.subject} {item.qty} {item.unit}
-              </button>
-            </Link>
+            <h4 className="text-left text-sm">
+              {item.subject} {item.qty} {item.unit}
+            </h4>
+            <div className="flex px-1 py-4">
+              <Checkbox
+                name="checkbox"
+                checked={checked}
+                onChange={setChecked}
+              />
+            </div>
           </li>
         ))}
       </ul>

@@ -3,8 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from 'axios';
 import { getSession } from "next-auth/react";
 
-export const getCriteriaById = async (categoryId: number) => {
-  console.log(categoryId)
+export const getCriteriaById = async (categoryId: string) => {
   const d = new Date();
   const session = await getSession()
   const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v2/criteria`, {
@@ -22,4 +21,4 @@ export const getCriteriaById = async (categoryId: number) => {
 }
 
 
-export const useCriteria = (categoryId: number) => useQuery(['criterias'], () => getCriteriaById(categoryId));
+export const useCriteria = (categoryId: string) => useQuery(['criterias'], () => getCriteriaById(categoryId));

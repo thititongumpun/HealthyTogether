@@ -1,15 +1,14 @@
 "use client";
 
-import AdviceList from "@/app/components/Advice/CategoryList";
 import Loading from "@/app/components/Loading";
 import { useCategory } from "@/hooks/useCategory";
+import Link from "next/link";
 import React from "react";
 
 type Props = {};
 
 export default function ActiviyPage({}: Props) {
   const { data: categories, isLoading } = useCategory();
-  console.log(categories);
 
   if (isLoading) {
     return <Loading />;
@@ -28,7 +27,16 @@ export default function ActiviyPage({}: Props) {
       </div>
       <div className="mx-auto mt-14 max-w-2xl">
         {categories?.map((category) => (
-          <AdviceList key={category.id} category={category} />
+          <div
+            className="mt-5 space-y-3 overflow-hidden bg-gray-200"
+            key={category.id}
+          >
+            <Link href={`/activity/${category.categoryOrderId}`}>
+              <h4 className="flex cursor-pointer items-center justify-center py-5 text-lg font-medium text-gray-700">
+                {category.categoryName}
+              </h4>
+            </Link>
+          </div>
         ))}
       </div>
     </section>

@@ -22,9 +22,6 @@ async function getAdviceByCategoryId(categoryId: string) {
 
 export default async function RecommendCategoryPage({ params }: Props) {
   const data: Advice[] = await getAdviceByCategoryId(params.categoryId);
-  
-  console.log(`${process.env.API_URL}`)
-  console.log(data);
   return (
     <>
       <ul className="mt-12 w-full space-y-3 divide-y">

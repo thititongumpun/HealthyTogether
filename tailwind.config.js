@@ -15,6 +15,7 @@ module.exports = {
       },
       colors: {
         "purple-500": "#512da8",
+        "gray-400": "#EDECF4"
       },
       gridTemplateColumns: {
         sidebar: "250px auto", //for sidebar layout
