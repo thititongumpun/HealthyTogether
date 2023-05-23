@@ -40,7 +40,6 @@ export default function Checkbox({
           `}
         >
           <CheckIcon
-            // size="1rem"
             className={`
               ${checked ? "scale-100" : "scale-0"} 
               ${checked && !disabled ? "text-purple-500" : "text-gray-400"} 

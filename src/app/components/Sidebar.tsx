@@ -25,7 +25,7 @@ export const navigation: NavItem[] = [
   {
     label: "บันทึกกิจกรรม",
     subMenu: "(วิ่งเดิน/ดื่มน้ำ)",
-    href: "/",
+    href: "/record",
     icon: <HomeIcon className="h-6 w-6" />,
   },
   {

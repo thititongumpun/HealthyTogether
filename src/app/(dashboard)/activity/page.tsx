@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import Loading from "@/app/components/Loading";
 import { useCategory } from "@/hooks/useCategory";
 import Link from "next/link";
-import React from "react";
 
 type Props = {};
 
