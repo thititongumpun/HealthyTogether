@@ -6,8 +6,12 @@ import "next-auth/jwt";
 declare module "next-auth/jwt" {
   interface JWT {
     /** The user's role. */
-    userRole?: "Admin";
+    userRole?: "Admin" | "User";
     username: string | null | undefined;
+    error: string;
+    accessToken: string;
+    accessTokenExpiry: string;
+    refreshToken: string;
   }
 }
 
@@ -17,5 +21,16 @@ declare module "next-auth" {
       email: string;
       jwtToken: string;
     } & DefaultSession["user"];
+    error: string;
+  }
+}
+
+declare module "next-auth" {
+  interface User {
+    data: {
+      accessToken: string;
+      accessTokenExpiry: string;
+      refreshToken;
+    }
   }
 }

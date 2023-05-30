@@ -44,7 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+
+  // console.log(session?.error)
+  const session = useSession();
+  console.log(session.data)
 
   return (
     <main className="grid min-h-screen grid-rows-header bg-zinc-100">
@@ -59,7 +63,7 @@ export default function RootLayout({
         <Sidebar
           open={sidebarOpen}
           setOpen={setSidebarOpen}
-          user={session?.user}
+          user={session?.data?.user}
         />
         {children}
       </div>

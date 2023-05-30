@@ -1,5 +1,26 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import axios from 'axios';
+
+async function refreshAccessToken(token: string) {
+  try {
+    const tokenResponse = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'v1/accounts/refresh-token', {
+      token: token
+    });
+
+    return {
+      token,
+      accessToken: tokenResponse.data.accessToken,
+      accessTokenExpiry: tokenResponse.data.accessTokenExpiry,
+      refreshToken: tokenResponse.data.refreshToken
+    }
+  } catch (error) {
+    return {
+      token,
+      error: "RefreshAccessTokenError",
+    }
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -36,10 +57,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       user && (token.user = user);
-      return token;
+      return Promise.resolve(token);
     },
     session({ session, token }) {
       session.user = token.user;
+      session.error = token.error
       return session;
     },
   },

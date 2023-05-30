@@ -2,12 +2,18 @@
 
 import React from "react";
 import { useRecord } from "@/hooks/useRecord";
-import dayjs from "dayjs";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import Loading from "@/app/components/Loading";
 
 type Props = {};
 
 export default function RecordPage({}: Props) {
-  const { data } = useRecord();
+  const { data, isLoading } = useRecord();
+
+  if (isLoading) {
+    return <Loading />
+  }
   console.log(data);
   let d = new Date()
     .toLocaleString("th-TH", { timeZone: "Asia/Bangkok" })
@@ -21,9 +27,9 @@ export default function RecordPage({}: Props) {
               รายงานการทำกิจกรรม
             </h3>
           </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-800">เพิ่ม</h3>
-          </div>
+          <Link href="/record/create">
+            <PlusCircleIcon className="h-10 w-10 cursor-pointer overflow-auto rounded-full bg-white text-purple-500" />
+          </Link>
         </div>
 
         <div className="flex w-full items-center justify-between">

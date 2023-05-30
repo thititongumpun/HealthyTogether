@@ -131,7 +131,7 @@ export default function Sidebar({
             height={36}
             width={36}
             alt="profile image"
-            className="rounded-full"
+            className="h-auto w-auto rounded-full"
           />
           <div className="flex flex-col ">
             <span className="my-0 text-indigo-50">{user?.fullName}</span>

@@ -14,12 +14,11 @@ type Props = {
 
 export default function ActivityCategoryPage({ params }: Props) {
   const { data, isLoading } = useCriteria(params.categoryId);
-  const items = data?.items.length;
   const router = useRouter();
 
   const newState = data;
 
-  const [isCompleted, setIsCompleted] = useState(new Array(newState?.items.length).fill(false));
+  const [isCompleted, setIsCompleted] = useState(new Array(data?.items?.length).fill(false));
 
   const handleOnChange = (position: number) => {
     const updatedCheckedState = isCompleted?.map((item, index) =>
@@ -41,7 +40,7 @@ export default function ActivityCategoryPage({ params }: Props) {
       >
         back
       </button>
-      {items && (
+      {data && (
         <ul className="mt-4 w-full space-y-3 divide-y">
           {data?.items.map((item, idx) => (
             <li

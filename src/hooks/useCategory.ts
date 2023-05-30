@@ -1,14 +1,16 @@
+
 import { Category } from "@/types/Cateogory";
 import { useQuery } from "@tanstack/react-query";
-import axios from 'axios';
 import { getSession } from "next-auth/react";
+import axios from "axios";
 
 export const getCategory = async () => {
-  const session = await getSession()
+  const session = await getSession();
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/category`, {
     headers: {
-      Authorization: `Bearer ${session?.user.jwtToken}`,
-    },
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${session?.user.jwtToken}`
+    }
   })
 
   const response: Category[] = data;
