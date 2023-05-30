@@ -1,6 +1,6 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { DropDownList, Record } from "@/types/Record";
+import { CreateRecord, DropDownList, Record } from "@/types/Record";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
@@ -33,6 +33,24 @@ export const getDropdownList = async () => {
   return response;
 }
 
+export const createRecord = async (createRecord: CreateRecord) => {
+  const session = await getSession()
+  const record = {
+    date: createRecord.date?.startDate,
+    qty: createRecord.qty,
+    unit: createRecord.unit,
+    activityName: createRecord.activityName
+  }
+  const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/activityhistory`, record, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${session?.user.jwtToken}`,
+    }
+  })
 
-export const useRecord = () => useQuery(['criterias'], () => getRecords());
+  return data;
+}
+
+
+export const useRecord = () => useQuery(['records'], () => getRecords());
 export const useDropdownList = () => useQuery(['dropDowns'], () => getDropdownList());

@@ -58,13 +58,13 @@ export default function ReportPage({}: Props) {
   const menuItems = ["วิ่ง", "ดื่มน้ำ"];
   const [selected, setSelected] = useState(menuItems[0]);
   const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
+    startDate: new Date(new Date().setDate(new Date().getDate() - 7)),
+    endDate: new Date(),
   });
 
   const { data, isLoading } = useChartData(
-    value.startDate,
-    value.endDate,
+    value.startDate.toISOString().split("T")[0],
+    value.endDate.toISOString().split("T")[0],
     selected
   );
 
@@ -74,7 +74,6 @@ export default function ReportPage({}: Props) {
   };
 
   const handleValueChange = (newValue: any | any) => {
-    console.log("newValue:", newValue);
     setValue(newValue);
   };
 

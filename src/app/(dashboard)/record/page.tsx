@@ -12,7 +12,7 @@ export default function RecordPage({}: Props) {
   const { data, isLoading } = useRecord();
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
   console.log(data);
   let d = new Date()
@@ -31,7 +31,6 @@ export default function RecordPage({}: Props) {
             <PlusCircleIcon className="h-10 w-10 cursor-pointer overflow-auto rounded-full bg-white text-purple-500" />
           </Link>
         </div>
-
         <div className="flex w-full items-center justify-between">
           <div className="mt-6 md:mt-0">{d}</div>
           <h4 className="mt-6 rounded-lg border  bg-gray-200 px-1 py-1 text-sm md:mt-0">
@@ -39,14 +38,19 @@ export default function RecordPage({}: Props) {
           </h4>
         </div>
       </section>
-      {data?.map((record) => (
-        <div key={record.id}>
-          <p>{record.activityName}</p>
-          <p>
-            {record.qty} {record.unit}
-          </p>
-        </div>
-      ))}
+      <section className="mt-2 flex flex-col gap-2 px-2 py-2">
+        {data?.map((record) => (
+          <div key={record.id}>
+            <p>{record.activityName}</p>
+            <p>
+              {record.qty} {record.unit}
+            </p>
+            <div className="relative flex items-center py-5">
+              <div className="border-dark flex-grow border-t"></div>
+            </div>
+          </div>
+        ))}
+      </section>
     </main>
   );
 }
