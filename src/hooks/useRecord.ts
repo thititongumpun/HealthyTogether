@@ -4,7 +4,7 @@ import { CreateRecord, DropDownList, Record } from "@/types/Record";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-export const getRecords = async () => {
+export const getRecords = async (): Promise<Record[]>  => {
   const d = new Date();
   const session = await getSession()
   const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/ActivityHistory/date`, {
@@ -16,11 +16,10 @@ export const getRecords = async () => {
     }
   })
 
-  const response: Record[] = data;
-  return response;
+  return data;
 }
 
-export const getDropdownList = async () => {
+export const getDropdownList = async (): Promise<DropDownList[]> => {
   const session = await getSession()
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/target/activity`, {
     headers: {
@@ -29,8 +28,7 @@ export const getDropdownList = async () => {
     }
   })
 
-  const response: DropDownList[] = data;
-  return response;
+  return data;
 }
 
 export const createRecord = async (createRecord: CreateRecord) => {

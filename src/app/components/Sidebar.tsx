@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useOnClickOutside } from "usehooks-ts";
 import { signOut } from "next-auth/react";
 import { User } from "@/types/Auth";
+import { toast } from "react-hot-toast";
 
 export type NavItem = {
   label: string;
@@ -70,11 +71,6 @@ export default function Sidebar({
     setOpen(false);
   });
 
-  const handleSignout = (e: React.MouseEvent<HTMLLIElement>) => {
-    e.preventDefault();
-    signOut();
-  };
-
   return (
     <div
       className={classNames({
@@ -115,7 +111,13 @@ export default function Sidebar({
               "mx-2 rounded-md p-2": true, //self style
               "hover: cursor-pointer": true,
             })}
-            onClick={handleSignout}
+            onClick={() =>
+              toast.promise(signOut(), {
+                loading: "กำลังออกจากระบบ",
+                success: "ออกจากระบบ",
+                error: "",
+              })
+            }
           >
             <ArrowLeftOnRectangleIcon className="h-6 w-6" /> ออกจากระบบ
           </li>

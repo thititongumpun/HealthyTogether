@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 
-export const getCategory = async () => {
+export const getCategory = async (): Promise<Category[]> => {
   const session = await getSession();
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/category`, {
     headers: {
@@ -13,8 +13,7 @@ export const getCategory = async () => {
     }
   })
 
-  const response: Category[] = data;
-  return response;
+  return data;
 }
 
 
