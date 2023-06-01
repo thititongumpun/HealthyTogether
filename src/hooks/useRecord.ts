@@ -4,7 +4,7 @@ import { CreateRecord, DropDownList, Record } from "@/types/Record";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-export const getRecords = async (): Promise<Record[]>  => {
+export const getRecords = async (): Promise<Record[]> => {
   const d = new Date();
   const session = await getSession()
   const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/ActivityHistory/date`, {
@@ -40,6 +40,18 @@ export const createRecord = async (createRecord: CreateRecord) => {
     activityName: createRecord.activityName
   }
   const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/activityhistory`, record, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${session?.user.jwtToken}`,
+    }
+  })
+
+  return data;
+}
+
+export const deleteRecord = async (id: string): Promise<string> => {
+  const session = await getSession()
+  const { data } = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/v1/activityhistory/${id}`, {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${session?.user.jwtToken}`,

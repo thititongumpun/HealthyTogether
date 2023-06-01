@@ -13,27 +13,26 @@ type Props = {};
 
 export default function LoginPage({}: Props) {
   const router = useRouter();
-  const { status } = useSession();
-  if (status === "authenticated") {
-    redirect("/");
-  }
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
   const onSubmit = async (data: any) => {
-    await signIn("credentials", {
+    const res = await signIn("credentials", {
       ...data,
-      redirect: true,
+      redirect: false,
       callbackUrl: `${window.location.origin}/`,
-    }).then((response) => {
-      if (!response?.ok) {
-      } else {
-        router.push("/");
-      }
     });
+    if (res?.error) {
+      toast.error(res?.error as string);
+    } else {
+      toast.success("ล็อคอินสำเร็จ");
+      router.push("/");
+    }
   };
+
   return (
     <main className="flex min-h-screen items-center justify-center text-center">
       <div className="flex flex-col space-y-1">

@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DateValueType } from "react-tailwindcss-datepicker/dist/types";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 type Props = {
   dropDownList: DropDownList[];
@@ -44,9 +45,11 @@ export default function RecordForm({ dropDownList }: Props) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["records"]);
+        toast.success('บันทึกข้อมูลสําเร็จ');
+        router.back();
       },
       onError: (error: any) => {
-        console.log(error);
+        toast.error(error.response.data.message);
       },
     }
   );

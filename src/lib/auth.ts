@@ -45,11 +45,12 @@ export const authOptions: NextAuthOptions = {
         })
         const user = await res.json()
 
+
         if (res.ok && user) {
           return user
         }
 
-        return null
+        throw new Error(user.message)
       },
     }),
   ],
