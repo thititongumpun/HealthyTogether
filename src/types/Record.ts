@@ -23,10 +23,16 @@ export const createRecord = object({
     startDate: z.string(),
     endDate: z.string()
   }),
-  dateOnly: string(),
+  activityName: string(),
+  qty: z.coerce.number().min(1, "กรุณากรอกมากกว่า 1"),
+  unit: string(),
+}).partial();
+
+export const updateRecord = object({
   activityName: string(),
   qty: z.coerce.number().min(1, "กรุณากรอกมากกว่า 1"),
   unit: string(),
 }).partial();
 
 export type CreateRecord = z.infer<typeof createRecord>;
+export type UpdateRecord = z.infer<typeof updateRecord>;

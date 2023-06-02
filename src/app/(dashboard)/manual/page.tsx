@@ -61,7 +61,16 @@ export default function ManualPage({}: Props) {
             renderTextLayer={false}
           />
         </Document>
-        <div className="mx-auto mt-5 max-w-screen-xl px-4 text-gray-600 md:px-8">
+        <button className="m-1 mx-auto flex items-center justify-center p-1 text-white">
+          <a
+            href="./Healthy_Together.pdf"
+            download="Healthy_Together"
+            className="flex items-center justify-center rounded-full border border-white bg-indigo-600 px-2 py-2 duration-150 hover:bg-indigo-500 active:bg-indigo-700 "
+          >
+            ดาวน์โหลดเอกสารคู่มือการใช้งาน
+          </a>
+        </button>
+        <div className="mx-auto  max-w-screen-xl px-4 text-gray-600 md:px-8">
           <div className="flex items-center justify-between space-x-4 text-sm font-medium text-gray-600">
             <button
               className="flex items-center gap-x-2 hover:text-indigo-600"

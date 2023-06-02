@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { NavItem } from "./Sidebar";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   onMenuButtonClick(): void;
@@ -30,7 +31,9 @@ export default function Navbar({
         "gap-5": true,
       })}
     >
-      <Image src="/logo.png" alt="logo" width={40} height={40} priority />
+      <Link href="/">
+        <Image src="/logo.png" alt="logo" width={40} height={40} priority />
+      </Link>
       <span className="font-bold text-white">{title}</span>
       <div className="flex-grow"></div>
       <div className="flex flex-1 items-center justify-end">

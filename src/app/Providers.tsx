@@ -12,7 +12,11 @@ interface Props {
 
 const Providers = ({ children }: Props) => {
   const [client] = React.useState(
-    new QueryClient({ defaultOptions: { queries: { staleTime: 0 } } })
+    new QueryClient({
+      defaultOptions: {
+        queries: { staleTime: 5 * 1000, refetchOnWindowFocus: false },
+      },
+    })
   );
   return (
     <QueryClientProvider client={client}>
