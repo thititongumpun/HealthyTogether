@@ -14,3 +14,7 @@ export interface User {
   jwtToken: string;
   deviceId: string;
 }
+
+export interface Me extends User {
+  imageUrl: string;
+}

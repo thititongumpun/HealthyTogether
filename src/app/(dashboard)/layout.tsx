@@ -5,6 +5,8 @@ import { useState } from "react";
 import Sidebar, { NavItem } from "../components/Sidebar";
 import { useSession } from "next-auth/react";
 import { HomeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { useGetMe } from "@/hooks/useGetMe";
+import Loading from "../components/Loading";
 
 export const navigation: NavItem[] = [
   { label: "แดชบอร์ด", href: "/", icon: <HomeIcon className="h-6 w-6" /> },
@@ -44,11 +46,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // const { data: session } = useSession();
-
-  // console.log(session?.error)
+  const { data: me, isLoading } = useGetMe();
   const session = useSession();
-  console.log(session.data)
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <main className="grid min-h-screen grid-rows-header bg-zinc-100">
@@ -64,6 +67,7 @@ export default function RootLayout({
           open={sidebarOpen}
           setOpen={setSidebarOpen}
           user={session?.data?.user}
+          me={me!}
         />
         {children}
       </div>

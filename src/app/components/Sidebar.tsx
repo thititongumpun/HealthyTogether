@@ -11,7 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useOnClickOutside } from "usehooks-ts";
 import { signOut } from "next-auth/react";
-import { User } from "@/types/Auth";
+import { Me, User } from "@/types/Auth";
 import { toast } from "react-hot-toast";
 
 export type NavItem = {
@@ -58,6 +58,7 @@ type Props = {
   navItems?: NavItem[];
   setOpen(open: boolean): void;
   user: User;
+  me: Me;
 };
 
 export default function Sidebar({
@@ -65,6 +66,7 @@ export default function Sidebar({
   navItems = navigation,
   setOpen,
   user,
+  me,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, (e) => {
@@ -127,9 +129,7 @@ export default function Sidebar({
       <div className="border-t border-t-indigo-800 p-4">
         <div className="flex items-center gap-4">
           <Image
-            src={
-              "https://res.cloudinary.com/defvbtczt/image/upload/v1680093886/HealthyTogether/1.jpg"
-            }
+            src={me.imageUrl ?? "/user.png"}
             height={36}
             width={36}
             alt="profile image"
