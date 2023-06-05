@@ -5,25 +5,24 @@ import { navigation } from "../components/Sidebar";
 
 type Props = {};
 
-const nav = navigation.filter((nav) => nav.label !== "แดชบอร์ด");
+const nav = navigation.filter(
+  (nav) => nav.label !== "แดชบอร์ด" && nav.label !== "แจ้งเตือน"
+);
 
 export default function DashboardPage({}: Props) {
   return (
     <main className="flex items-center justify-center px-4 py-16">
       <div className="mx-auto w-full max-w-md">
-        <div className="items-start justify-between space-y-2 sm:flex sm:flex-col">
+        <div className="items-start justify-between space-y-12 sm:flex sm:flex-col ">
           {nav?.map((menu, idx) => (
-            <div
+            <Link
               key={idx}
-              className="mx-auto flex w-full flex-col items-center justify-between rounded-xl border text-center"
+              href={menu.href}
+              className="mx-auto flex h-[80px] w-full flex-col items-center justify-center rounded-xl border bg-gray-200 text-center shadow-md"
             >
-              {menu.label !== "แดชบอร์ด" && (
-                <Link href={menu.href}>
-                  <div className="text-3xl">{menu.label}</div>
-                  <span className="text-sm text-gray-500">{menu.subMenu}</span>
-                </Link>
-              )}
-            </div>
+              <div className="text-3xl">{menu.label}</div>
+              <span className="text-sm text-gray-500">{menu.subMenu}</span>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 import "../globals.css";
 import Navbar from "@/app/components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar, { NavItem } from "../components/Sidebar";
 import { useSession } from "next-auth/react";
 import { HomeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
@@ -13,7 +13,7 @@ export const navigation: NavItem[] = [
   {
     label: "บันทึกกิจกรรม",
     subMenu: "(วิ่งเดิน/ดื่มน้ำ)",
-    href: "/",
+    href: "/record",
     icon: <HomeIcon className="h-6 w-6" />,
   },
   {
@@ -38,6 +38,12 @@ export const navigation: NavItem[] = [
     href: "/manual",
     icon: <HomeIcon className="h-6 w-6" />,
   },
+  {
+    label: "แจ้งเตือน",
+    subMenu: "Healthy Together",
+    href: "/notification",
+    icon: <HomeIcon className="h-6 w-6" />,
+  }
 ];
 
 export default function RootLayout({

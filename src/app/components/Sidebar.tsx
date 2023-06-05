@@ -51,6 +51,12 @@ export const navigation: NavItem[] = [
     href: "/manual",
     icon: <HomeIcon className="h-6 w-6" />,
   },
+  {
+    label: "แจ้งเตือน",
+    subMenu: "Healthy Together",
+    href: "/notification",
+    icon: <HomeIcon className="h-6 w-6" />,
+  },
 ];
 
 type Props = {
@@ -63,7 +69,7 @@ type Props = {
 
 export default function Sidebar({
   open,
-  navItems = navigation,
+  navItems = navigation.filter((nav) => nav.label !== "แจ้งเตือน"),
   setOpen,
   user,
   me,

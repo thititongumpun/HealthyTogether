@@ -12,10 +12,8 @@ type Props = {
 };
 
 export default function UpdatePage({ params }: Props) {
-  console.log(params.id);
   const { data, isLoading } = useDropdownList();
   const {data: record} = useGetRecordById(params.id);
-  console.log(record)
   if (isLoading) {
     return <Loading />;
   }

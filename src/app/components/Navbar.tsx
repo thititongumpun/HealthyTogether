@@ -7,6 +7,8 @@ import Image from "next/image";
 import { NavItem } from "./Sidebar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useNotification } from "@/hooks/useNotification";
+import Loading from "./Loading";
 
 type Props = {
   onMenuButtonClick(): void;
@@ -21,6 +23,14 @@ export default function Navbar({
 }: Props) {
   const pathname = usePathname();
   const title = navigation?.find((item) => item.href === pathname)?.label!;
+
+  const { data, isLoading } = useNotification();
+  if (isLoading) {
+    return <Loading />;
+  }
+  const totalNotification = data
+    ?.map((x) => x.notCompleted.filter((x) => x.isTarget === true).length)
+    .reduce((a, b) => a + b, 0);
   return (
     <nav
       className={classNames({
@@ -37,13 +47,20 @@ export default function Navbar({
       <span className="font-bold text-white">{title}</span>
       <div className="flex-grow"></div>
       <div className="flex flex-1 items-center justify-end">
-        <BellIcon className="h-6 w-6" />
+        <div className="relative inline-block">
+          <Link href="/notification">
+            <BellIcon className="-mr-1 h-6 w-6 origin-top animate-swing  cursor-pointer rounded-full border align-text-top text-white" />
+          </Link>
+          <sup className="absolute -right-1.5 bottom-3 inline-block text-white">
+            {totalNotification}
+          </sup>
+        </div>
       </div>
-      <button className="md:hidden" onClick={onMenuButtonClick}>
+      <button className="text-white md:hidden" onClick={onMenuButtonClick}>
         {isOpen ? (
           <XMarkIcon className="h-6 w-6" />
         ) : (
-          <Bars3Icon className="h-6 w-6" />
+          <Bars3Icon className="h-6 w-6 " />
         )}
       </button>
     </nav>
