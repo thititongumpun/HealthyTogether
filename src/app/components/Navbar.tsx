@@ -51,7 +51,7 @@ export default function Navbar({
           <Link href="/notification">
             <BellIcon className="-mr-1 h-6 w-6 origin-top animate-swing  cursor-pointer rounded-full border align-text-top text-white" />
           </Link>
-          <sup className="absolute -right-1.5 bottom-3 inline-block text-white">
+          <sup className="absolute -right-1.5 bottom-3 inline-block animate-pulse text-white">
             {totalNotification}
           </sup>
         </div>

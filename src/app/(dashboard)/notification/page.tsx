@@ -7,85 +7,37 @@ import React, { useState } from "react";
 type Props = {};
 
 export default function NotificationPage({}: Props) {
-  const tableItems = [
+  const plans = [
     {
-      label: "กิจกรรมกำหนดเป้าหมายเอง",
-      title: "Top pages",
-      items: [
-        {
-          prop: "https://www.google.com",
-          clicks: "129",
-          impression: "Good",
-        },
-        {
-          prop: "https://www.youtube.com",
-          clicks: "798",
-          impression: "Normal",
-        },
-        {
-          prop: "https://www.github.com",
-          clicks: "399",
-          impression: "Great",
-        },
-        {
-          prop: "https://www.floatui.com",
-          clicks: "678",
-          impression: "Bad",
-        },
+      name: "Enterprise",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      price: 32,
+      isMostPop: true,
+      features: [
+        "Curabitur faucibus",
+        "massa ut pretium maximus",
+        "Sed posuere nisi",
+        "Pellentesque eu nibh et neque",
+        "Suspendisse a leo",
+        "Praesent quis venenatis ipsum",
+        "Duis non diam vel tortor",
       ],
     },
     {
-      label: "กิจกรรมตามคำแนะนำ",
-      title: "Top countries",
-      items: [
-        {
-          prop: "Mauritania",
-          clicks: "203",
-          impression: "Good",
-        },
-        {
-          prop: "United state america",
-          clicks: "408",
-          impression: "Great",
-        },
-        {
-          prop: "France",
-          clicks: "99",
-          impression: "Bad",
-        },
-        {
-          prop: "Germany",
-          clicks: "320",
-          impression: "Normal",
-        },
+      name: "Startup",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      price: 12,
+      isMostPop: false,
+      features: [
+        "Curabitur faucibus",
+        "massa ut pretium maximus",
+        "Sed posuere nisi",
+        "Pellentesque eu nibh et neque",
+        "Suspendisse a leo",
+        "Praesent quis venenatis ipsum",
+        "Duis non diam vel tortor",
       ],
     },
-    // {
-    //   label: "Devices",
-    //   title: "Top devices",
-    //   items: [
-    //     {
-    //       prop: "Android",
-    //       clicks: "360",
-    //       impression: "Normal",
-    //     },
-    //     {
-    //       prop: "Linux",
-    //       clicks: "190",
-    //       impression: "Good",
-    //     },
-    //     {
-    //       prop: "Macbook",
-    //       clicks: "129",
-    //       impression: "Good",
-    //     },
-    //     {
-    //       prop: "Windows",
-    //       clicks: "50",
-    //       impression: "Bad",
-    //     },
-    //   ],
-    // },
   ];
 
   const [selectedItem, setSelectedItem] = useState(0);
@@ -106,84 +58,92 @@ export default function NotificationPage({}: Props) {
 
   const { data, isLoading } = useNotification();
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  // console.log(data?.map((x) => x.notCompleted.filter((x) => x.isTarget === true)));
+  console.log(data);
 
   const totalNotification = data
     ?.map((x) => x.notCompleted.filter((x) => x.isTarget === true).length)
     .reduce((a, b) => a + b, 0);
 
+  const notifications = [
+    {
+      name: "กิจกรรมกำหนดเป้าหมายเอง",
+      isFix: false
+    },
+    {
+      name: "กิจกรรมตามคำแนะนำ",
+      isFix: true
+    },
+  ];
+
   return (
-    <div className="md:px-8l mx-auto mt-5 max-w-screen-xl px-4">
-      <div className="max-w-lg">
-        <h3 className="text-xl font-bold text-gray-800 sm:text-2xl">
-          รายการแจ้งเตือน {totalNotification} รายการ
-        </h3>
-        <p className="mt-2 text-gray-600">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
-        </p>
-      </div>
-      <div className="mt-12 overflow-x-auto text-sm">
-        <ul
-          role="tablist"
-          className="flex w-full items-center gap-x-3 overflow-x-auto border-b"
-        >
-          {tableItems.map((item, idx) => (
-            <li
+    <section className="relative py-14">
+      <div className="absolute top-0 h-[521px] w-full"></div>
+      <div className="mx-auto max-w-screen-xl text-gray-600 sm:px-4 md:px-8">
+        <div className="relative mx-auto max-w-xl space-y-3 px-4 text-center sm:px-0">
+          <h1 className="text-xl font-semibold text-indigo-600">
+            แจ้งเตือนจำนวน {totalNotification} รายการ
+          </h1>
+          {/* <p className="text-3xl font-semibold text-gray-800 sm:text-4xl">
+            Pay as you grow
+          </p>
+          <div className="max-w-xl">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              efficitur consequat nunc.
+            </p>
+          </div> */}
+        </div>
+        <div className="mt-16 justify-center sm:flex">
+          {plans.map((item, idx) => (
+            <div
               key={idx}
-              className={`border-b-2 py-2 ${
-                selectedItem == idx
-                  ? "border-indigo-600 text-indigo-600"
-                  : "border-white text-gray-500"
+              className={`relative mt-6 flex flex-1 flex-col items-stretch sm:mt-0 sm:max-w-md sm:rounded-xl ${
+                item.isMostPop ? "bg-white shadow-lg sm:border" : ""
               }`}
             >
-              <button
-                role="tab"
-                aria-selected={selectedItem == idx ? true : false}
-                aria-controls={`tabpanel-${idx + 1}`}
-                className="rounded-lg px-4 py-2.5 font-medium duration-150 hover:bg-gray-50 hover:text-indigo-600 active:bg-gray-100"
-                onClick={() => setSelectedItem(idx)}
-              >
-                {item.label}
-              </button>
-            </li>
+              <div className="space-y-4 border-b p-4 py-8 md:p-8">
+                <span className="font-medium text-indigo-600">{item.name}</span>
+                <div className="text-3xl font-semibold text-gray-800">
+                  ${item.price}{" "}
+                  <span className="text-xl font-normal text-gray-600">/mo</span>
+                </div>
+                <p>{item.desc}</p>
+                <button className="w-full rounded-lg bg-indigo-600 px-3 py-3 text-sm font-semibold text-white duration-150 hover:bg-indigo-500 active:bg-indigo-700">
+                  Get Started
+                </button>
+              </div>
+              <ul className="space-y-3 p-4 py-8 md:p-8">
+                <li className="pb-2 font-medium text-gray-800">
+                  {data?.map((item, idx) => (
+                    <p key={idx}>{item.name}</p>
+                  ))}
+                </li>
+                {item.features.map((featureItem, idx) => (
+                  <li key={idx} className="flex items-center gap-5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-indigo-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    {featureItem}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-        <table className="w-full table-auto text-left">
-          <thead className="border-b font-medium text-gray-600">
-            <tr>
-              <th className="w-9/12 py-4 pr-6">
-                {tableItems[selectedItem].title}
-              </th>
-              <th className="py-4 pr-6">Clicks</th>
-              <th className="py-4 pr-6">Impression</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y text-gray-600">
-            {tableItems[selectedItem].items.map((item, idx) => (
-              <tr key={idx}>
-                <td className="whitespace-nowrap py-4 pr-6">{item.prop}</td>
-                <td className="whitespace-nowrap py-4 pr-6 text-indigo-600">
-                  {item.clicks}
-                </td>
-                <td className="whitespace-nowrap py-4 pr-6">
-                  <span
-                    className={`rounded-full px-3 py-2 text-xs font-semibold ${
-                      labelColors[item?.impression]?.color || ""
-                    }`}
-                  >
-                    {item.impression}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
