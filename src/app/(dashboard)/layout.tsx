@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { HomeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { useGetMe } from "@/hooks/useGetMe";
 import Loading from "../components/Loading";
+import Script from "next/script";
 
 export const navigation: NavItem[] = [
   { label: "แดชบอร์ด", href: "/", icon: <HomeIcon className="h-6 w-6" /> },
@@ -43,7 +44,7 @@ export const navigation: NavItem[] = [
     subMenu: "Healthy Together",
     href: "/notification",
     icon: <HomeIcon className="h-6 w-6" />,
-  }
+  },
 ];
 
 export default function RootLayout({
@@ -77,6 +78,8 @@ export default function RootLayout({
         />
         {children}
       </div>
+      <Script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js" />
+      <Script type="text/javascript" src="/kofi.js" />
     </main>
   );
 }

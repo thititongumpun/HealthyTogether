@@ -92,6 +92,24 @@ export default function Sidebar({
       ref={ref}
     >
       <nav className="top-0 md:sticky md:top-16">
+        {/* account  */}
+        <div className="border-t border-t-indigo-800 p-4">
+          <div className="flex items-center gap-4">
+            <Image
+              src={me.imageUrl ?? "/user.png"}
+              height={28}
+              width={28}
+              alt="profile image"
+              className="h-auto w-auto rounded-full"
+            />
+            <div className="flex flex-col ">
+              <span className="my-0 text-indigo-50">{user?.fullName}</span>
+              <Link href="/" className="text-sm text-indigo-200">
+                ตั้งค่า
+              </Link>
+            </div>
+          </div>
+        </div>
         {/* nav items */}
         <ul className="flex flex-col gap-2 py-2">
           {navItems.map((item, index) => {
@@ -131,24 +149,6 @@ export default function Sidebar({
           </li>
         </ul>
       </nav>
-      {/* account  */}
-      <div className="border-t border-t-indigo-800 p-4">
-        <div className="flex items-center gap-4">
-          <Image
-            src={me.imageUrl ?? "/user.png"}
-            height={36}
-            width={36}
-            alt="profile image"
-            className="h-auto w-auto rounded-full"
-          />
-          <div className="flex flex-col ">
-            <span className="my-0 text-indigo-50">{user?.fullName}</span>
-            <Link href="/" className="text-sm text-indigo-200">
-              ตั้งค่า
-            </Link>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
