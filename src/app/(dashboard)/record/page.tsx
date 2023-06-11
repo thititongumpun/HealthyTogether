@@ -98,40 +98,44 @@ export default function RecordPage({}: Props) {
       </section>
 
       <section className="mt-2 flex flex-col gap-2 px-2 py-2">
-        {data?.map((record) => (
-          <div key={record.id}>
-            <div className="flex justify-between space-y-2">
-              <div className="flex items-center">
-                <div className="flex flex-col">
-                  <p>{record.activityName}</p>
-                  <p>
-                    {record.qty} {record.unit}
-                  </p>
+        {data?.length! > 0 ? (
+          data?.map((record) => (
+            <div key={record.id}>
+              <div className="flex justify-between space-y-2">
+                <div className="flex items-center">
+                  <div className="flex flex-col">
+                    <p>{record.activityName}</p>
+                    <p>
+                      {record.qty} {record.unit}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex cursor-pointer gap-5">
+                  <Link href={`/record/edit/${record.id}`}>
+                    <PencilIcon className="h-7 w-6" />
+                  </Link>
+                  <TrashIcon
+                    className="flex h-7 w-6 cursor-pointer"
+                    onClick={() => setOpen(true)}
+                  />
+                  <ConfirmDialog
+                    title="Are you sure ?"
+                    open={open}
+                    setOpen={() => setOpen(false)}
+                    onConfirm={() => removeRecord(record.id)}
+                  >
+                    คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่
+                  </ConfirmDialog>
                 </div>
               </div>
-              <div className="flex cursor-pointer gap-5">
-                <Link href={`/record/edit/${record.id}`}>
-                  <PencilIcon className="h-7 w-6" />
-                </Link>
-                <TrashIcon
-                  className="flex h-7 w-6 cursor-pointer"
-                  onClick={() => setOpen(true)}
-                />
-                <ConfirmDialog
-                  title="Are you sure ?"
-                  open={open}
-                  setOpen={() => setOpen(false)}
-                  onConfirm={() => removeRecord(record.id)}
-                >
-                  คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่
-                </ConfirmDialog>
+              <div className="relative flex items-center py-5">
+                <div className="border-dark flex-grow border-t"></div>
               </div>
             </div>
-            <div className="relative flex items-center py-5">
-              <div className="border-dark flex-grow border-t"></div>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h1 className="text-md text-center md:text-xl">ไม่มีข้อมูล</h1>
+        )}
       </section>
     </main>
   );

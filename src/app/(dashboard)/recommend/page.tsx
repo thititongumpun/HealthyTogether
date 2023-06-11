@@ -24,21 +24,18 @@ async function getAdvices() {
 export default async function RecommendPage({}: Props) {
   const data: Advice[] = await getAdvices();
   return (
-    <>
-      <ul className="mt-12 w-full space-y-3 divide-y">
-        {data.map((advice) => (
-          <li
-            key={advice.id}
-            className="bg-purple-500 px-4 py-2 text-white duration-150 hover:rounded-xl hover:border-white hover:shadow-md md:px-12"
-          >
-            <Link href={`/recommend/${advice.id.toString()}`}>
-              <p className="text-lg">{advice.name}</p>
-              <p className="text-sm">{advice.detail}</p>
-              <button></button>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="mt-12 w-full space-y-3 divide-y">
+      {data.map((advice) => (
+        <li
+          key={advice.id}
+          className="bg-purple-500 px-4 py-2 text-white duration-150 hover:rounded-xl hover:border-white hover:shadow-md md:px-12"
+        >
+          <Link href={`/recommend/${advice.id.toString()}`}>
+            <p className="text-lg">{advice.name}</p>
+            <p className="text-sm">{advice.detail}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

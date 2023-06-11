@@ -7,7 +7,7 @@ import Image from "next/image";
 import { NavItem } from "./Sidebar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useNotification } from "@/hooks/useNotification";
+import { useCountNotification, useNotification } from "@/hooks/useNotification";
 import Loading from "./Loading";
 
 type Props = {
@@ -24,13 +24,10 @@ export default function Navbar({
   const pathname = usePathname();
   const title = navigation?.find((item) => item.href === pathname)?.label!;
 
-  const { data, isLoading } = useNotification();
+  const { data, isLoading } = useCountNotification();
   if (isLoading) {
     return <Loading />;
   }
-  const totalNotification = data
-    ?.map((x) => x.notCompleted.filter((x) => x.isTarget === true).length)
-    .reduce((a, b) => a + b, 0);
   return (
     <nav
       className={classNames({
@@ -52,7 +49,7 @@ export default function Navbar({
             <BellIcon className="-mr-1 h-6 w-6 origin-top animate-swing  cursor-pointer rounded-full border align-text-top text-white" />
           </Link>
           <sup className="absolute -right-1.5 bottom-3 inline-block animate-pulse text-white">
-            {totalNotification}
+            {data}
           </sup>
         </div>
       </div>
