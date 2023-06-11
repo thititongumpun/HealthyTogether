@@ -3,7 +3,7 @@ import "../globals.css";
 import Navbar from "@/app/components/Navbar";
 import { useEffect, useState } from "react";
 import Sidebar, { NavItem } from "../components/Sidebar";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { HomeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { useGetMe } from "@/hooks/useGetMe";
 import Loading from "../components/Loading";
@@ -56,9 +56,20 @@ export default function RootLayout({
   const { data: me, isLoading } = useGetMe();
   const session = useSession();
 
+
+  let tokenExpire = new Date(session.data?.expires!).getTime();
+  let now = Date.now();
+
+  useEffect(() => {
+    if (now > tokenExpire) {
+      signIn();
+    }
+  }, [now, session, tokenExpire])
+
   if (isLoading) {
     return <Loading />;
   }
+
 
   return (
     <main className="grid min-h-screen grid-rows-header bg-zinc-100">

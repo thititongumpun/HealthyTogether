@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { navigation } from "../components/Sidebar";
+import { useSession } from "next-auth/react";
 
 type Props = {};
 
