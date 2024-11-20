@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { TolgeeNextProvider } from "@/tolgee/client";
+import { getStaticData } from "@/tolgee/shared";
+import { getLanguage } from "@/tolgee/language";
 import localFont from "next/font/local";
+
 import "./globals.css";
-
-
+import "@copilotkit/react-ui/styles.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,17 +23,21 @@ export const metadata: Metadata = {
   description: "Health Application for manage happy life.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLanguage();
+  const staticData = await getStaticData([locale]);
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <TolgeeNextProvider language={locale} staticData={staticData}>
+          {children}
+        </TolgeeNextProvider>
       </body>
     </html>
   );

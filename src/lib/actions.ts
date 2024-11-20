@@ -79,3 +79,16 @@ export async function AddExercise({ name, date, qty }: { name: string, date: Dat
     console.log('error to created exercise', e)
   }
 }
+
+export async function deleteExercise({ id, name }: { id: string, name: string }) {
+  const session = await auth();
+  try {
+    await db.delete(exercises).where(
+      and(eq(exercises.userId, session?.user?.id as string),
+        eq(exercises.id, id)));
+    revalidatePath('/exercises')
+    return { success: true, message: `ลบ ${name} สำเร็จ` }
+  } catch (e) {
+    console.log('error to delete exercise', e)
+  }
+}

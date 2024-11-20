@@ -32,26 +32,41 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useTranslate } from "@tolgee/react";
 import { AddExercise } from "@/lib/actions";
 import { sports } from "@/data/sport";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   date: z.date({
-    required_error: "กรุณาเลือกวันที่",
+    required_error: "Please select date",
   }),
   name: z.string({
-    required_error: "กรุณาเลือกชื่อกิจกรรม",
+    required_error: "Please select exercise name",
   }),
   qty: z.coerce
     .number()
     .min(1, {
-      message: "จำนวนต้องมากกว่า 1",
+      message: "Muse be more than 1",
     })
-    .max(1000000, { message: "น้อยกว่า 1000000" }),
+    .max(1000000, { message: "Must be less than 1,000,000" }),
 });
 
 export default function ExerciseForm() {
+  const [open, setOpen] = useState(false);
+  const { t } = useTranslate();
+  const router = useRouter();
   const newDate = new Date();
   newDate.setHours(0, 0, 0, 0);
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -66,134 +81,154 @@ export default function ExerciseForm() {
     try {
       const res = await AddExercise(data);
       toast({
-        title: "ยืนยันสำเร็จ",
+        title: "Create sucessfully.",
         description: res?.message,
       });
+      router.refresh();
     } catch (e) {
       console.log("error to created exercise", e);
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>วันที่</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">เพิ่มรายการใหม่</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>เพิ่มรายการกิจกรรม</DialogTitle>
+          <DialogDescription>
+            เลือกวันที่และกิจกรรมที่ต้องการบันทึก
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>{t("exercise-date-label")}</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground",
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>{t("exercise-date-desc")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>{t("exercise-exerise-label")}</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-full justify-between",
+                            !field.value && "text-muted-foreground",
+                          )}
+                        >
+                          {field.value ? (
+                            sports.find((sport) => sport.value === field.value)
+                              ?.label
+                          ) : (
+                            <>{t("exercise-exerise-label")}</>
+                          )}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput placeholder="Search language..." />
+                        <CommandList>
+                          <CommandEmpty>No activity found.</CommandEmpty>
+                          <CommandGroup>
+                            {sports.map((sport) => (
+                              <CommandItem
+                                value={sport.label}
+                                key={sport.value}
+                                onSelect={() => {
+                                  form.setValue("name", sport.value);
+                                }}
+                              >
+                                {sport.label}
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    sport.value === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0",
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="qty"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("exercise-qty-label")}</FormLabel>
                   <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
+                    <Input placeholder="30" type="number" {...field} />
                   </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormDescription>วันที่ทำกิจกรรม</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-full justify-between",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value
-                        ? sports.find((sport) => sport.value === field.value)
-                            ?.label
-                        : "เลือกกิจกรรม"}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                  <Command>
-                    <CommandInput placeholder="Search language..." />
-                    <CommandList>
-                      <CommandEmpty>No language found.</CommandEmpty>
-                      <CommandGroup>
-                        {sports.map((sport) => (
-                          <CommandItem
-                            value={sport.label}
-                            key={sport.value}
-                            onSelect={() => {
-                              form.setValue("name", sport.value);
-                            }}
-                          >
-                            {sport.label}
-                            <Check
-                              className={cn(
-                                "ml-auto",
-                                sport.value === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0",
-                              )}
-                            />
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="qty"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>จำนวน</FormLabel>
-              <FormControl>
-                <Input placeholder="30" type="number" {...field} />
-              </FormControl>
-              <FormDescription>จำนวนนาที</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">ยืนยัน</Button>
-      </form>
-    </Form>
+                  <FormDescription>{t("exercise-qty-desc")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <DialogFooter>
+              <Button type="submit" onClick={() => setOpen(false)}>
+                {t("exercise-submit-button")}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }
