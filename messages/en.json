@@ -1,6 +1,12 @@
 {
   "Advices": "Health Recommendations",
+  "exercise-date-desc": "Exercise date",
+  "exercise-date-label": "Date",
+  "exercise-exerise-desc": "Activity name",
+  "exercise-exerise-label": "Activity",
+  "exercise-qty-desc": "Number of minutes",
+  "exercise-qty-label": "Quantity",
   "exercise-submit-button": "Submit",
-  "exercise-summary": "Activity Summary",
-  "Hello": "Hello jar"
+  "exercise-summary": "Execise Summary",
+  "home-welcome-page": "welcome"
 }

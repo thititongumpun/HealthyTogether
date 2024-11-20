@@ -1,5 +1,11 @@
 {
+  "exercise-date-desc": "活动日期",
+  "exercise-date-label": "日期",
+  "exercise-exerise-desc": "活动名称",
+  "exercise-exerise-label": "活动",
+  "exercise-qty-desc": "分钟数",
+  "exercise-qty-label": "数量",
   "exercise-submit-button": "确认",
-  "Hello": "迪尤夫很冷",
-  "exercise-summary": "活动成果总结"
+  "exercise-summary": "活动成果总结",
+  "home-welcome-page": "欢迎"
 }

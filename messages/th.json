@@ -1,12 +1,12 @@
 {
   "Advices": "แนะนำสุขภาพ",
+  "exercise-date-desc": "วันที่ทำกิจกรรม",
+  "exercise-date-label": "วันที่",
+  "exercise-exerise-desc": "ชื่อกิจกรรมที่ทำ",
+  "exercise-exerise-label": "กิจกรรม",
+  "exercise-qty-desc": "จำนวนนาที",
+  "exercise-qty-label": "จำนวน",
   "exercise-submit-button": "ยืนยัน",
   "exercise-summary": "สรุปผลการทำกิจกรรม",
-  "home-welcome-page": "ยินดีต้อนรับ",
-  "exercise-date-label": "วันที่",
-  "exercise-date-desc": "วันที่ทำกิจกรรม",
-  "exercise-exerise-label": "กิจกรรม",
-  "exercise-exerise-desc": "ชื่อกิจกรรมที่ทำ",
-  "exercise-qty-label": "จำนวน",
-  "exercise-qty-desc": "จำนวนนาที"
+  "home-welcome-page": "ยินดีต้อนรับ"
 }
