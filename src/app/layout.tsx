@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { TolgeeNextProvider } from "@/tolgee/client";
+import { ViewTransitions } from 'next-view-transitions'
 import { getStaticData } from "@/tolgee/shared";
 import { getLanguage } from "@/tolgee/language";
 import localFont from "next/font/local";
@@ -31,6 +32,7 @@ export default async function RootLayout({
   const locale = await getLanguage();
   const staticData = await getStaticData([locale]);
   return (
+    <ViewTransitions>
     <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -40,5 +42,6 @@ export default async function RootLayout({
         </TolgeeNextProvider>
       </body>
     </html>
+    </ViewTransitions>
   );
 }
