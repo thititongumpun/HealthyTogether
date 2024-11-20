@@ -1,3 +1,4 @@
+import CalorieCounter from "@/components/animata/widget/calorie-counter";
 import RetroGrid from "@/components/ui/retro-grid";
 import { getTranslate } from "@/tolgee/server";
 import { CopilotKit } from "@copilotkit/react-core";
@@ -12,6 +13,12 @@ export default async function Page() {
       </span>
 
       <RetroGrid />
+      <CalorieCounter
+        date={new Date()}
+        goal={4000}
+        fulfilled={120}
+        image="https://plus.unsplash.com/premium_vector-1689096672037-98309fdc7f44?bg=FFFFFF&q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3"
+      />
       <CopilotKit runtimeUrl="/api/copilotkit">
         <CopilotPopup />
       </CopilotKit>
