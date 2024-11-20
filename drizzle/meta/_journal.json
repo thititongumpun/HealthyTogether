@@ -5,8 +5,43 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1731857755587,
-      "tag": "0000_brief_vindicator",
+      "when": 1731900703082,
+      "tag": "0000_long_wild_child",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1731917795098,
+      "tag": "0001_odd_marten_broadcloak",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1731996254621,
+      "tag": "0002_jittery_talisman",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1731997020394,
+      "tag": "0003_small_marauders",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1732024967283,
+      "tag": "0004_fat_microchip",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1732030212979,
+      "tag": "0005_mixed_dagger",
       "breakpoints": true
     }
   ]

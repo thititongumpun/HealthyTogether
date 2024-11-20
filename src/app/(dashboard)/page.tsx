@@ -1,17 +1,13 @@
-import { auth } from "@/auth";
-import { Button } from "@/components/ui/button";
-import UserButton from "@/components/user-button";
-import Link from "next/link";
+import RetroGrid from "@/components/ui/retro-grid";
 
-export default async function Home() {
-  const session = await auth();
-
-  console.log(session);
+export default async function Page() {
   return (
-    <div>
-      <Link href="/api/auth/signin">Login</Link>
-      <UserButton />
-      <Button>CLick me</Button>
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">
+        Welcome
+      </span>
+
+      <RetroGrid />
     </div>
   );
 }

@@ -14,6 +14,17 @@ CREATE TABLE `account` (
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE TABLE `advice` (
+	`id` text PRIMARY KEY NOT NULL,
+	`subject` text,
+	`url` text,
+	`isActive` integer NOT NULL,
+	`createdAt` integer,
+	`updatedAt` integer,
+	`categoryId` text NOT NULL,
+	FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `authenticator` (
 	`credentialID` text NOT NULL,
 	`userId` text NOT NULL,
@@ -28,6 +39,16 @@ CREATE TABLE `authenticator` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `authenticator_credentialID_unique` ON `authenticator` (`credentialID`);--> statement-breakpoint
+CREATE TABLE `category` (
+	`id` text PRIMARY KEY NOT NULL,
+	`categoryName` text,
+	`description` text,
+	`categoryOrderId` integer NOT NULL,
+	`isActive` integer NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer
+);
+--> statement-breakpoint
 CREATE TABLE `session` (
 	`sessionToken` text PRIMARY KEY NOT NULL,
 	`userId` text NOT NULL,
