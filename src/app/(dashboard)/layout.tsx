@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import LanguageSwitcher from "@/components/language-switcher";
+import { ModeToggle } from "@/components/theme-switcher";
 import {
   SidebarProvider,
   SidebarInset,
@@ -22,7 +23,8 @@ export default function DashboardLayout({
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
             </div>
-            <div className="ml-auto p-2">
+            <div className="ml-auto inline-flex gap-4 p-2">
+              <ModeToggle />
               <LanguageSwitcher />
             </div>
           </header>

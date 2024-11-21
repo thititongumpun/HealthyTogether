@@ -12,6 +12,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteExercise } from "@/lib/actions";
 import { toast } from "@/hooks/use-toast";
+import Ticker from "./animata/text/ticker";
 
 type ExerciseProps = {
   exercises: {
@@ -102,7 +103,8 @@ export default function Exercise({ exercises }: ExerciseProps) {
                   <ul className="space-y-2">
                     <li className="flex items-center justify-between gap-14">
                       <span>{exercise.subject}</span>
-                      <span>{exercise.qty} minutes</span>
+                      {/* <span>{exercise.qty} minutes</span> */}
+                      <Ticker value={exercise.qty.toString()} />
                     </li>
                   </ul>
                 </CardContent>

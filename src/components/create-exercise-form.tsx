@@ -46,7 +46,6 @@ import { useTranslate } from "@tolgee/react";
 import { AddExercise } from "@/lib/actions";
 import { sports } from "@/data/sport";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   date: z.date({
@@ -66,7 +65,6 @@ const FormSchema = z.object({
 export default function ExerciseForm() {
   const [open, setOpen] = useState(false);
   const { t } = useTranslate();
-  const router = useRouter();
   const newDate = new Date();
   newDate.setHours(0, 0, 0, 0);
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -84,7 +82,6 @@ export default function ExerciseForm() {
         title: "Create sucessfully.",
         description: res?.message,
       });
-      router.refresh();
     } catch (e) {
       console.log("error to created exercise", e);
     }
