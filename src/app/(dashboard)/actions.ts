@@ -7,6 +7,7 @@ export default async function getTotalExerciseMinutes() {
   const currentDate = new Date()
   const session = await auth();
   currentDate.setHours(0, 0, 0, 0);
+  console.log(currentDate);
   const data = await db.query.exercises.findMany({
     columns: {
       qty: true,
