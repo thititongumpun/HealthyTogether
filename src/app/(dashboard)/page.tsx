@@ -9,10 +9,9 @@ import { auth } from "@/auth";
 
 export default async function Page() {
   const t = await getTranslate();
-  const minutes = await getTotalExerciseMinutes();
+  const date = new Date().setHours(0,0,0,0)
+  const minutes = await getTotalExerciseMinutes(date);
   const session = await auth();
-
-  console.log(minutes);
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
       <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">

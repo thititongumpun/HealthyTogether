@@ -3,17 +3,14 @@
 import { auth } from "@/auth";
 import { db } from "../../../drizzle/drizzle"
 
-export default async function getTotalExerciseMinutes() {
-  const currentDate = new Date()
+export default async function getTotalExerciseMinutes(date: number) {
   const session = await auth();
-  currentDate.setHours(0, 0, 0, 0);
-  console.log(currentDate);
   const data = await db.query.exercises.findMany({
     columns: {
       qty: true,
     },
     where: (exercises, { eq, and }) =>
-      and(eq(exercises.date, currentDate),
+      and(eq(exercises.date, new Date(date)),
         eq(exercises.userId, session?.user?.id as string)),
   })
 
