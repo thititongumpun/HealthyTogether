@@ -10,7 +10,7 @@ import { auth } from "@/auth";
 export default async function Page() {
   const t = await getTranslate();
   const date = new Date().setHours(0,0,0,0)
-  const minutes = await getTotalExerciseMinutes(date);
+  const minutes = await getTotalExerciseMinutes();
   const session = await auth();
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
