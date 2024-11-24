@@ -90,14 +90,14 @@ export default function Modal({
         title: "Create sucessfully.",
         description: res?.message,
       });
-      const x = await fetch("http://localhost:8080/api/ex/v1", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(await x.json());
+      // const x = await fetch("http://localhost:8080/api/ex/v1", {
+      //   method: "POST",
+      //   body: JSON.stringify(data),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+      // console.log(await x.json());
       setIsOpen(false);
     } catch (e) {
       console.log("error to created exercise", e);
