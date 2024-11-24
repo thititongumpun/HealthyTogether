@@ -17,7 +17,7 @@ export default async function getTotalExerciseMinutes() {
   })
 
   const filteredData = data.filter(
-    (row) => row.date && format(new Date(row.date), 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')
+    (row) => row.date && format(new Date(row.date), 'yyyy-MM-dd') === format(new Date(new Date().setHours(0, 0, 0, 0)), 'yyyy-MM-dd')
   );
 
   return filteredData.reduce((acc, curr) => acc + curr.qty, 0);
